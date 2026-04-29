@@ -1,6 +1,12 @@
 # lunarmodules/luacheck
 
-Hardened GitHub Action by [Chainguard](https://www.chainguard.dev).
+Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at [https://github.com/lunarmodules/luacheck](https://github.com/lunarmodules/luacheck).
+
+## Versions
+
+| Version | Tag | Upstream commit |
+|---------|-----|-----------------|
+| v1.2.0 | [`v1.2.0`](https://github.com/chainguard-actions/luacheck/tree/v1.2.0) | — |
 
 ## Privacy
 
