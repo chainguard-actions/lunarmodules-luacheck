@@ -1,5 +1,7 @@
 # lunarmodules/luacheck
 
+ A tool for linting and static analysis of Lua code. 
+
 Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at [https://github.com/lunarmodules/luacheck](https://github.com/lunarmodules/luacheck).
 
 ## Versions

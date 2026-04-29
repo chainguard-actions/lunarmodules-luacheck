@@ -1,5 +1,6 @@
 {
   "owner": "lunarmodules",
   "name": "luacheck",
-  "visibility": ""
+  "visibility": "internal",
+  "description": " A tool for linting and static analysis of Lua code. "
 }
