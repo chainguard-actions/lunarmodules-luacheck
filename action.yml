@@ -9,11 +9,11 @@ runs:
   using: docker
   image: docker://ghcr.io/lunarmodules/luacheck@sha256:46601a794d24e86dda2a94d957cfba6a451db7c0f4f61f8abe04c4fcd5184e0f # v1.2.0
   entrypoint: sh
+  env:
+    LUACHECK_ARGS: ${{ inputs.args }}
   args:
     - -c
-    - 'luacheck "$@"'
-    - --
-    - ${{ inputs.args }}
+    - luacheck $LUACHECK_ARGS
 branding:
   icon: check
   color: yellow
