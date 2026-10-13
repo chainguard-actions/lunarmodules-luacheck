@@ -1,0 +1,38 @@
+name: Test error case - invalid Lua file fails luacheck
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Create a Lua file with luacheck warnings/errors
+        run: |
+          mkdir -p "$GITHUB_WORKSPACE/tests/lua-fixtures"
+          cat > "$GITHUB_WORKSPACE/tests/lua-fixtures/invalid.lua" << 'EOF'
+          -- This file has luacheck issues: undefined global and unused variable
+          local unused_var = 42
+          print(undefined_global)
+          EOF
+
+      - id: action
+        uses: .
+        with:
+          args: tests/lua-fixtures/invalid.lua
+        continue-on-error: true
+
+      - name: Assert luacheck failed on invalid Lua
+        env:
+          OUTCOME: ${{ steps.action.outcome }}
+        run: |
+          echo "outcome: $OUTCOME"
+          if [ "$OUTCOME" = "failure" ]; then
+            echo "PASS: luacheck correctly reported errors on invalid Lua file"
+          elif [ "$OUTCOME" = "success" ]; then
+            echo "FAIL: luacheck should have failed on invalid Lua file but succeeded"
+            exit 1
+          else
+            echo "FAIL: unexpected outcome '$OUTCOME'"
+            exit 1
+          fi

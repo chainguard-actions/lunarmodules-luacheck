@@ -1,0 +1,48 @@
+name: Test custom args - luacheck with flags
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Verify action fails when given a file with issues
+        id: check-with-issues
+        uses: .
+        with:
+          args: tests/fixtures/lua/unused.lua
+        continue-on-error: true
+
+      - name: Assert action fails on problematic file
+        env:
+          OUTCOME: ${{ steps.check-with-issues.outcome }}
+        run: |
+          echo "outcome with issues: $OUTCOME"
+          if [ "$OUTCOME" = "failure" ]; then
+            echo "PASS: action correctly failed on problematic file"
+          elif [ "$OUTCOME" = "success" ]; then
+            echo "FAIL: action should have failed on problematic file"
+            exit 1
+          else
+            echo "FAIL: unexpected outcome '$OUTCOME'"
+            exit 1
+          fi
+
+      - name: Run action with a clean file
+        id: check-clean
+        uses: .
+        with:
+          args: tests/fixtures/lua/valid.lua
+
+      - name: Assert action passes on clean file
+        env:
+          OUTCOME: ${{ steps.check-clean.outcome }}
+        run: |
+          echo "outcome with clean file: $OUTCOME"
+          if [ "$OUTCOME" = "success" ]; then
+            echo "PASS: action passed on clean file"
+          else
+            echo "FAIL: action should have passed on clean file, got '$OUTCOME'"
+            exit 1
+          fi
