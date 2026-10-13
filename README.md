@@ -8,7 +8,7 @@ Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at
 
 | Version | Tag | Upstream commit |
 |---------|-----|-----------------|
-| v1.2.0 | [`v1.2.0`](https://github.com/chainguard-actions/lunarmodules-luacheck/tree/v1.2.0) | — |
+| v1.2.0 | [`v1.2.0`](https://github.com/chainguard-actions/lunarmodules-luacheck/tree/v1.2.0) | [`cc089e3`](https://github.com/lunarmodules/luacheck/commit/cc089e3f65acdd1ef8716cc73a3eca24a6b845e4) |
 
 ## Privacy
 
